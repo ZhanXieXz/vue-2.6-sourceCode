@@ -127,6 +127,7 @@ function initData (vm: Component) {
   const props = vm.$options.props
   const methods = vm.$options.methods
   let i = keys.length
+  // 判断data中成员是否和props和methods重名
   while (i--) {
     const key = keys[i]
     if (process.env.NODE_ENV !== 'production') {

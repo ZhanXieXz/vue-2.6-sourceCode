@@ -27,6 +27,7 @@ export function initMixin (Vue: Class<Component>) {
     }
 
     // a flag to avoid this being observed
+    // 如果是vue是你不需要做响应式处理
     vm._isVue = true
     // merge options
     if (options && options._isComponent) {
@@ -49,13 +50,22 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
+    // $children/$parent/$root/$refs
     initLifecycle(vm)
+    // vue的事件监听初始化，父组件绑定在当前组件上的事件
     initEvents(vm)
+    // vue的编译render初始化
+    // $slots/$scopedSlots/_c/$createElement/$attrs/$listeners
     initRender(vm)
+    // beforeCreate生命钩子函数的回调
     callHook(vm, 'beforeCreate')
+    // 把inject成员注入到vue中
     initInjections(vm) // resolve injections before data/props
+    // 初始化vue的_props/methods/_data/computed/watch
     initState(vm)
+    // 初始化 provide
     initProvide(vm) // resolve provide after data/props
+    // created生命钩子函数的回调
     callHook(vm, 'created')
 
     /* istanbul ignore if */
